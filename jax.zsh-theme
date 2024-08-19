@@ -1,23 +1,22 @@
+BACKGROUND_COLOR_ONE="cyan"
+FOREFROUND_COLOR_ONE="black"
+BACKGROUND_COLOR_TWO="blue"
+FOREGROUND_COLOR_TWO="cyan"
+
 BACK="\ue0b2"
 FORWARD="\ue0b0"
 DISK="\uf0a0"
 
 prompt_start() {
-    print -P "%F{cyan}$BACK%K{cyan}%F{black}$DISK "
+    print -P "%F{$BACKGROUND_COLOR_ONE}$BACK%K{$BACKGROUND_COLOR_ONE}%F{$FOREGROUND_COLOR_ONE}$DISK "
 }
 
 prompt_mid() {
-    print -P "%K{blue}%F{cyan}$FORWARD %{$fg_bold[cyan]%}"
+    print -P "%K{$BACKGROUND_COLOR_TWO}%F{$BACKGROUND_COLOR_ONE}$FORWARD %{$fg_bold[$FOREGROUND_COLOR_TWO]%}"
 }
 
 prompt_end() {
-    print -P "%{$reset_color%F{blue}$FORWARD%f"
+    print -P "%{$reset_color%F{$BACKGROUND_COLOR_TWO}$FORWARD%f"
 }
 
-PROMPT=$(prompt_start)%n$(prompt_mid)%~/$(prompt_end)
-PROMPT+=' $(git_prompt_info)'
-
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✗%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+PROMPT=$(prompt_start)%{%n%}$(prompt_mid)%{%~%}/$(prompt_end)
